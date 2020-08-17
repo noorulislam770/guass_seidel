@@ -1,13 +1,29 @@
+# Hello guys this is a simple implementaion of gauss-seidel method of 
+# linear aljebra. this code can calculate any number of linear equations just dont trust it for 
+# any reasonably important work there are alternatives available online that you can use however if you want
+# to learn how it is implemented in python just follow this code i will includes comments in here later for explaination of every line
+# however no I am preparing for exams so dont have enough time. thank you
+# remember to fork me on github https://github.com/noorulislam770/
+
+# please let me know if there are any suggestions and problems. there is alot to improve so suggestions are welcomed.
+
+
+# IMPORTANT NOTES : 
+# 1 . Not yet covered to count for divergence i will do it in minute after exams.
+# 2 . if it goes to an infinite loop just press CTRL+C Or CMD+C to exit.
+# Thanks Regards Noor ul islam
+
 import math
+
+
 
 def main():
     get_equations()
  
 
 def get_equations():
-    eq1 = ["5x1","-2x2","3x3","-1"]
-    eq2 = ["-3x1","9x2","1x3","2"]
-    eq3 = ["2x1","-1x2","7x3","3"]
+    print("Welcome to gauss-seidel calculator : ")
+    print("please follow the instructoins below :\n\n\n\n")
     print("steps to enter equations : ")
     print("Enter each coeff of x1 x2 and so on as ")
     print("1 -1 2 0 0 1 and write 0 if there is no coeff " )
@@ -25,7 +41,7 @@ def get_equations():
     for row in equations_elems:
         for i in range(len(equations_elems)):
             row[i] = row[i] + "x" + str(i+1)
-    
+    print("\nyour equations converted to matrix ")
     print(equations_elems)
 
     # eq2 = ["-3x1","9x2","1x3","2"]
@@ -49,18 +65,18 @@ def reorder_eq(equations):
     fullcoeffients = [extract_coeffs(equation) for equation in equations]
     coeffients = fullcoeffients
 
-    print(coeffients,"coeffeints inside reorder_eq")
+    # print(coeffients,"coeffeints inside reorder_eq")
     new_coeffs=[]
     for coeff in coeffients:
         new_coeffs.append(coeff[0:-1])
     
     coeffients = new_coeffs # [[-4, 5], [1, 2]]
-    print(coeffients," INSIDE ")
+    # print(coeffients," INSIDE ")
 
 
     
     reordered_matrix = [matrix for matrix in coeffients]
-    print(reordered_matrix, "Re-ordered matrix ")
+    # print(reordered_matrix, "Re-ordered matrix ")
     # [[-4, 5], [1, 2]]
     temp_reordered_matrix = [matrix for matrix in coeffients]
     # index_counter = 0
@@ -68,13 +84,13 @@ def reorder_eq(equations):
     for coeffient in reordered_matrix:
         
 
-        print("coeffient ", coeffient)# [-4 5], [3 2] 
+        # print("coeffient ", coeffient)# [-4 5], [3 2] 
         # print("index ", i)
 
         for i in range(len(coeffient)):
             rest = [c for c in coeffient]
             rest.pop(i)
-            print(rest,"Rest")
+            # print(rest,"Rest")
             if math.fabs(coeffient[i]) > abs_of_rest(rest):
                 temp_reordered_matrix.remove(coeffient)
                 if len(temp_reordered_matrix) == (len(reordered_matrix) -1 ):
@@ -85,41 +101,7 @@ def reorder_eq(equations):
             
 
 
-
-    # for c in reordered_matrix:
-    #     print("coeffient ", c)# [-4 5], [1 2] 
-    #     # print("index ", i)
-    #     coeffient = c
-    #     if reordered_matrix.index(coeffient) == i  and coeffient[i] != 0:
-    #         # print (True)
-    #         num_index = 0
-    #         for num in coeffient:
-                
-    #             if math.fabs(num) > abs_of_rest(c,num_index):
-    #                 if c.index(num) == len(c):
-    #                     # print("inside of if last ")
-    #                     reordered_matrix.remove(c)
-    #                     reordered_matrix.append(c)
-    #                 else:
-    #                     # print("inside of if not last ")
-    #                     reordered_matrix.remove(c)
-    #                     reordered_matrix.insert(coeffient.index(num),c)
-    #     else:
-    #         for num in coeffient:
-                
-    #             if math.fabs(num) > abs_of_rest(c,c.index(num)):
-    #                 if c.index(num) == len(c):
-    #                     # print("inside of if last ")
-    #                     reordered_matrix.remove(c)
-    #                     reordered_matrix.append(c)
-    #                 else:
-    #                     # print("inside of if not last ")
-    #                     reordered_matrix.remove(c)
-    #                     reordered_matrix.insert(coeffient.index(num),c) 
-
-    # for i in range 
-    # reordered_matrix = [[reordered_matrix.append(equation[-1]) if (equation[i] == reordered_matrix[i]) ] for i in range (len(reorder_eq) - 1) for equation in equations ]
-    print(temp_reordered_matrix, "temp re orderd matrix")
+   
     temp_reordered_list = []
     for re in temp_reordered_matrix:
         temp_row = []
@@ -135,7 +117,7 @@ def reorder_eq(equations):
     return reordered_matrix
 
 def extract_coeffs(equation):
-    print(equation,"equation inside extract_coeff() method")
+    # print(equation,"equation inside extract_coeff() method")
     # temp_eqs =  [equation[0].split("x")[0],equation[1].split("x")[0],equation[2].split("x")[0],equation[3]]
     # temp_eqs = []
     temp_eqs = []
@@ -146,7 +128,7 @@ def extract_coeffs(equation):
             temp_eqs.append(e)
         else:
             temp_eqs.append(elem)
-    print("Temp Eqs",temp_eqs)
+    # print("Temp Eqs",temp_eqs)
 
 # this will generate theese values and pass to the calling function
     # Temp Eqs ['0', '-2', '5', '1']
@@ -169,14 +151,15 @@ def abs_of_rest(nums):
 # 1 1 8 1 1 8,9 2 2 2 1 8,3 15 3 3 1 1 2,2 3 4 20 3 4,3 4 3 5 23 4
 
 def calculate(matrix):
-    print("inside calculate method")
-    print(matrix," matrix")
+    print("Now Starting Applying Guass Seidel Method")
+    # print("inside calculate method")
+    # print(matrix," matrix")
     roeq = [e for e in matrix[-1]];
     functions = []
     rownum = 0
-    print("Matrix",matrix)
+    # print("Matrix",matrix)
     for row in matrix:
-        print(row,"this is row")
+        # print(row,"this is row")
         columnnum = 0
         leftofeq = 0
         rightofeq = []
@@ -222,14 +205,11 @@ def startCalculating(equations):
     print("\n\n\n +++++++++++++++++ inside the calculating function ++++++++++++++++")
     matrixlen = len(equations)
     variables = [0 for matrixlen in equations]
+    print("These are the equations that will be used as values of coeffients of x1, x2 and so on")
+    print("like if it was  x1 = 1/5 + x2/5 + x3/5 . then it will be [0.2, 0.4x1, 0.x2] \n")
+    print(equations,"\n")
+    
 
-    print(equations,"Equations \n\n")
-    # print(variables)
-#    [[0.1111111111111111, -0.1111111111111111, 0.7777777777777778],
-#  [-0.2222222222222222, -0.3333333333333333, 0.1111111111111111], [1.0, 0.2, -0.4]]
-#    [[0.1111111111111111, -0.1111111111111111, 0.7777777777777778]
-    # [0, 0, 0]
-    # [1, 2, 3]
     answer_array = []
     notdone = True
     while notdone:
@@ -241,19 +221,19 @@ def startCalculating(equations):
             break
 
         counter = 0
-        print("equations")
-        print(equations)
+        # print("equations")
+        # print(equations)
         for equation in equations:
             result = equation[0] #1
-            print(result,"result")
+            # print(result,"result")
             tempeqs = equation[1:]
             tempvariables = [v for v in variables]
-            print(variables,"normal variables")
+            # print(variables,"normal variables")
             tempvariables.pop(equations.index(equation))
-            print(tempeqs,"temp eqs")
+            # print(tempeqs,"temp eqs")
             # print(tempvariables,"temp vars")
             for i in range(matrixlen-1):#0,1,2
-                print(i)
+                # print(i)
                 result += tempvariables[i] * tempeqs[i]#0.2 + 0 * 0.4 + 0 * .6\ 0.2 + 0.2 * 0.2 + 0* -1
             # print()
             # print(result,"result")
@@ -290,8 +270,12 @@ def startCalculating(equations):
 
 
 
-    print(variables)
-    print(counterrrr) 
+    # print(variables)
+    i = 1
+    for var in variables:
+        print("x" + str(i) + " = " + str(var))
+        i += 1
+    print("Number of Repetitions to get the Answer : " + str(counterrrr)) 
 
     
 
