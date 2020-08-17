@@ -58,46 +58,70 @@ def reorder_eq(equations):
     print(coeffients," INSIDE ")
 
 
-    i = 0
-    reordered_matrix = coeffients
+    
+    reordered_matrix = [matrix for matrix in coeffients]
     print(reordered_matrix, "Re-ordered matrix ")
     # [[-4, 5], [1, 2]]
-    for c in reordered_matrix:
-        print("coeffient ", c)# [-4 5], [1 2] 
+    temp_reordered_matrix = [matrix for matrix in coeffients]
+    # index_counter = 0
+
+    for coeffient in reordered_matrix:
+        
+
+        print("coeffient ", coeffient)# [-4 5], [3 2] 
         # print("index ", i)
-        coeffient = c
-        if reordered_matrix.index(coeffient) == i  and coeffient[i] != 0:
-            # print (True)
-            num_index = 0
-            for num in coeffient:
+
+        for i in range(len(coeffient)):
+            rest = [c for c in coeffient]
+            rest.pop(i)
+            print(rest,"Rest")
+            if math.fabs(coeffient[i]) > abs_of_rest(rest):
+                temp_reordered_matrix.remove(coeffient)
+                if len(temp_reordered_matrix) == (len(reordered_matrix) -1 ):
+                    temp_reordered_matrix.append(coeffient)
+                else:
+                    temp_reordered_matrix.insert(i,coeffient)
+            
+            
+
+
+
+    # for c in reordered_matrix:
+    #     print("coeffient ", c)# [-4 5], [1 2] 
+    #     # print("index ", i)
+    #     coeffient = c
+    #     if reordered_matrix.index(coeffient) == i  and coeffient[i] != 0:
+    #         # print (True)
+    #         num_index = 0
+    #         for num in coeffient:
                 
-                if math.fabs(num) > abs_of_rest(c,num_index):
-                    if c.index(num) == len(c):
-                        # print("inside of if last ")
-                        reordered_matrix.remove(c)
-                        reordered_matrix.append(c)
-                    else:
-                        # print("inside of if not last ")
-                        reordered_matrix.remove(c)
-                        reordered_matrix.insert(coeffient.index(num),c)
-        else:
-            for num in coeffient:
+    #             if math.fabs(num) > abs_of_rest(c,num_index):
+    #                 if c.index(num) == len(c):
+    #                     # print("inside of if last ")
+    #                     reordered_matrix.remove(c)
+    #                     reordered_matrix.append(c)
+    #                 else:
+    #                     # print("inside of if not last ")
+    #                     reordered_matrix.remove(c)
+    #                     reordered_matrix.insert(coeffient.index(num),c)
+    #     else:
+    #         for num in coeffient:
                 
-                if math.fabs(num) > abs_of_rest(c,c.index(num)):
-                    if c.index(num) == len(c):
-                        # print("inside of if last ")
-                        reordered_matrix.remove(c)
-                        reordered_matrix.append(c)
-                    else:
-                        # print("inside of if not last ")
-                        reordered_matrix.remove(c)
-                        reordered_matrix.insert(coeffient.index(num),c) 
+    #             if math.fabs(num) > abs_of_rest(c,c.index(num)):
+    #                 if c.index(num) == len(c):
+    #                     # print("inside of if last ")
+    #                     reordered_matrix.remove(c)
+    #                     reordered_matrix.append(c)
+    #                 else:
+    #                     # print("inside of if not last ")
+    #                     reordered_matrix.remove(c)
+    #                     reordered_matrix.insert(coeffient.index(num),c) 
 
     # for i in range 
     # reordered_matrix = [[reordered_matrix.append(equation[-1]) if (equation[i] == reordered_matrix[i]) ] for i in range (len(reorder_eq) - 1) for equation in equations ]
-    
+    print(temp_reordered_matrix, "temp re orderd matrix")
     temp_reordered_list = []
-    for re in reordered_matrix:
+    for re in temp_reordered_matrix:
         temp_row = []
         # print(re)
         for temp in fullcoeffients:
@@ -133,17 +157,10 @@ def extract_coeffs(equation):
     return [int(eq) for eq in temp_eqs]
     # return 
 
-def abs_of_rest(row,index):
-    newlist = []
-    for x in range(len(row)):
-        if x != index:
-            newlist.append(row[x])
-    
+def abs_of_rest(nums):
     total = 0
-    for num in newlist:
+    for num in nums : 
         total += math.fabs(num)
-    # print(total)
-
     return total
     
 
@@ -178,7 +195,16 @@ def calculate(matrix):
             # print(leftofeq,"leftofeq")
             columnnum += 1;
         # print("loop Done")
-        completeeq = [num/leftofeq for num in rightofeq ]
+        completeeq = []
+        # completeeq = [n*0 or num/leftofeq for num in rightofeq if num != 0 for n in rightofeq if n == 0 ]
+        for num in rightofeq:
+            temp_value = 0
+            if num != 0:
+                temp_value =  num/leftofeq
+                completeeq.append(temp_value)
+            else:
+                temp_value = 0
+                completeeq.append(temp_value)
         # completeeq.insert(0,roeq[rownum]/leftofeq)
         
         
